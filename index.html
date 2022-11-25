@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Associating Objects and Their Effects in Video Through Coordination Games</title>
+  <link href="./css/style.css" rel="stylesheet" type="text/css">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-09KT1FJ0XF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-09KT1FJ0XF');
+  </script>
+
+  <meta name="description" content="Project page for 'Associating Objects and Their Effects in Video Through Coordination Games.'">
+</head>
+<body>
+  <p class="title" style="
+    margin-bottom: 0;
+    padding-bottom: 0;
+  ">Associating Objects and Their Effects in Video</p>
+  <p class="title" style="
+    padding-top: 0;
+    margin-top: 0;
+  ">Through Coordination Games</p>
+  <p class="author">
+    <span class="author"><a target="_blank" href="http://www.erikalu.com/">Erika Lu</a>&nbsp;<sup>1</sup></span>
+    <span class="author"><a target="_blank" href="http://people.csail.mit.edu/fcole/">Forrester Cole</a>&nbsp;<sup>1</sup></span>
+    <span class="author"><a target="_blank" href="https://weidixie.github.io/">Weidi Xie</a>&nbsp;<sup>2</sup></span>
+    <span class="author"><a target="_blank" href="http://people.csail.mit.edu/talidekel/">Tali Dekel</a>&nbsp;<sup>1, 3</sup></span>
+    <span class="author"><a target="_blank" href="https://billf.mit.edu/">William T. Freeman</a>&nbsp;<sup>1</sup></span>
+    <span class="author"><a target="_blank" href="https://www.robots.ox.ac.uk/~az/">Andrew Zisserman</a>&nbsp;<sup>4</sup></span>
+    <span class="author"><a target="_blank" href="http://people.csail.mit.edu/mrub/">Michael Rubinstein</a>&nbsp;<sup>1</sup></span>
+  </p>
+  <table border="0" align="center" class="affiliations" width="1280px">
+    <tbody align="center">
+      <tr>
+        <td>&nbsp;<sup>1</sup>&nbsp;<a href="https://research.google.com/">Google Research</a></td>
+        <td>&nbsp;<sup>2</sup>&nbsp;<a href="https://en.sjtu.edu.cn/">Shanghai Jiaotong University</a></td>
+        <td>&nbsp;<sup>3</sup>&nbsp;<a href="https://www.weizmann.ac.il/pages/">Weizmann Institute of Science</a></td>
+        <td>&nbsp;<sup>2</sup>&nbsp;<a href="http://www.robots.ox.ac.uk/~vgg/">VGG, University of Oxford</a></td>
+      </tr>
+      <tr>
+        <td style="width: 25%"><img src="./assets/GoogleAI_logo.png" height="48" alt=""></td>
+        <td style="width: 25%"><img src="./assets/sjtu_logo.png" height="48" alt=""></td>
+        <td style="width: 25%"><img src="./assets/wis_logo.jpg" height="48" alt=""></td>
+        <td style="width: 25%"><img src="./assets/oxford_logo.png" height="48" alt=""></td>
+      </tr>
+    </tbody></table>
+    <table width="999" border="0" align="center" class="menu">
+      <tbody>
+        <tr>
+          <td align="center">| <a target="_blank" href="https://openreview.net/pdf?id=hq-p55-qil9">Paper</a> | <a href="#video">Video</a> | <a style="border-bottom: none; font-weight: 100">Code (coming soon)</a> |</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="container">
+      <table width="200" border="0" align="center">
+        <tbody>
+          <tr>
+            <td colspan="4" align="center"><img src="./assets/teaser.png" width="980" alt="" style="margin-top:10px"></td>
+          </tr>
+        </tbody></table>
+        <table width="200" border="0" align="center" style="table-layout: fixed; width: 100%">
+          <tbody>
+            <tr>
+              <td colspan="4" class="caption"><p style="line-height: 1.3; margin-top: 5px">Overview of our self-supervised training pipeline to decompose videos into object-centric layers. The input is a short RGB video clip <b>I</b> and masks <b>M<sup>i</sup></b>. The target frame <b>I<sub>t</sub></b> is masked from the input of the network. The transformer decoder predicts a single output layer from features extracted from the RGB input and the corresponding object mask. The output layers <b>L<sup>i</sup><sub>t</sub></b> are composited over the background <b>L<sub>0</sub></b> to form the predicted frame <b>I′<sub>t</sub></b> , which is compared to the target frame <b>I<sub>t</sub></b> . No direct supervision is provided for <b>L<sup>i</sup><sub>t</sub></b> .
+              </p></td>
+            </tr>
+          </tbody></table>
+          <!-- <p class="section">&nbsp;</p> -->
+          <p><span class="section">Abstract</span> </p>
+          <p>We explore a feed-forward approach for decomposing a video into layers, where each layer contains an object of interest along with its associated shadows, reflections, and other visual effects. This problem is challenging since associated effects vary widely with the 3D geometry and lighting conditions in the scene, and ground-truth labels for visual effects are difficult (and in some cases impractical) to collect. 
+We take a self-supervised approach and train a neural network to produce a foreground image and alpha matte from a rough object segmentation mask under a reconstruction and sparsity loss. Under reconstruction loss, the layer decomposition problem is underdetermined: many combinations of layers may reconstruct the input video.
+			  Inspired by the game theory concept of focal points&mdash;or <em>Schelling points</em>&mdash;we pose the problem as a coordination game, where each player (network) predicts the effects for a single object without knowledge of the other players' choices. The players learn to converge on the "natural" layer decomposition in order to maximize the likelihood of their choices aligning with the other players'. We train the network to play this game with itself, and show how to design the rules of this game so that the focal point lies at the correct layer decomposition. We demonstrate feed-forward results on a challenging synthetic dataset, then show that pretraining on this dataset significantly reduces optimization time for real videos.<br>
+          </p>
+          <p class="section">&nbsp;</p>
+          <p class="section" id="paper">Paper</p>
+          <table width="940" border="0">
+            <tbody>
+              <tr>
+                <td height="100"><a href="https://openreview.net/pdf?id=hq-p55-qil9"><img src="./assets/paper_preview.png" alt="" width="140" height="167"></a></td>
+                <td width="750"><p><b>Associating Objects and Their Effects in Video Through Coordination Games</b><br>
+                  Erika Lu, Forrester Cole, Weidi Xie, Tali Dekel, William T. Freeman, Andrew Zisserman, and Michael Rubinstein<br>
+                  <em>NeurIPS 2022.</em><br><br>
+                  [<a href="https://openreview.net/pdf?id=hq-p55-qil9">paper</a>]</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="section">&nbsp;</p>
+          <table width="200" border="0" align="center" id="video">
+            <tbody>
+              <tr>
+                <td><iframe width="900" height="506" src="https://www.youtube.com/embed/KGhjuYos0Vw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="section" id="results">Results</p>
+          <table width="940" border="0">
+            <tbody>
+	          <tr>
+              <td><p style="margin: 0px 0px 20px 0px"><b>Synthetic data pretraining.</b> &nbsp;We train on 2-object videos and show results on 2-object and 4-object videos:</p></td>
+	          </tr>
+			  <tr>
+	            <td colspan="4" align="center" style="padding: 0px 0px 30px 0px">
+					<video controls="controls" loop style="width: 95%"><source src="supplementary/assets/refl2/117.mp4" type="video/mp4"></video>
+				</td>
+	          </tr> 
+	          <tr>
+	            <td colspan="4" align="center">
+					<video controls="controls" loop style="width: 95%"><source src="supplementary/assets/refl4/251.mp4" type="video/mp4"></video>
+				</td>	          
+				</tr>
+	          <tr>
+              <td><p style="margin: 40px 0px 10px 0px"><b>Finetune on real data.</b> &nbsp;After pretraining our model on synthetic data, we finetune it on real videos, achieving results on-par with Lu, et al. [1] despite requiring 1/10th the training time:</p></td>
+	          </tr>
+	          <tr>
+	            <td colspan="4" align="center">
+					<video controls="controls" loop style="width: 890px"><source src="supplementary/assets/real/reflection.mp4" type="video/mp4"></video>
+				  </td>
+	          </tr>
+	          <tr>
+              <td><p style="margin: 40px 0px 10px 0px">In addition to being faster, our method is more robust to random initializations than Lu, et al. [1]:</p></td>
+	          </tr>
+	          <tr>
+	            <td colspan="4" align="center">
+					<video controls="controls" loop style="width: 890px"><source src="supplementary/assets/real/reflection-seeds.mp4" type="video/mp4"></video>
+				  </td>
+	          </tr>
+	      </tbody>
+          </table>
+          <p class="section">&nbsp;</p>
+          <p class="section">Supplementary Material</p>
+          <table width="587" height="136" border="0">
+            <tbody>
+              <tr>
+                <td width="300"><img src="./assets/supp_fig.png" alt="" height="125"></td>
+                <td align="left">
+                  <p>[<a href="./supplementary/index.html">supplementary page</a>]</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="section">&nbsp;</p>
+          <p class="section" id="code">Code</p>
+          <table border="0">
+            <tbody>
+              <tr>
+                <td width="80"><a href="https://github.com/erikalu/omnimatte"><img src="./assets/github_logo.png" alt="" height="50"></a></td>
+                <td align="left">
+                  <p>[<a style="border-bottom: none">code coming soon</a>]</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="section">&nbsp;</p>
+          <p class="section" id="related">Related Work</p>
+          <table width="940" border="0">
+            <tbody>
+			  <tr>
+                <td height="100"><a href="https://arxiv.org/pdf/2105.06993.pdf"><img src="./assets/paper_preview_omnimatte.png" alt="" width="140" height="167"></a></td>
+                <td width="750"><p><b>Omnimatte: Associating Objects and Their Effects in Video</b><br>
+                  Erika Lu, Forrester Cole, Tali Dekel, Andrew Zisserman, William T. Freeman, and Michael Rubinstein<br>
+                  <em>CVPR 2021 (Oral).</em><br><br>
+                  [<a href="https://arxiv.org/pdf/2105.06993.pdf">paper</a>] [<a href="https://omnimatte.github.io">project page</a>]</p></p>
+                </td>
+              </tr>
+			<tr><td>&nbsp;</td></tr>
+              <tr>
+                <td height="100"><a href="https://arxiv.org/pdf/2009.07833.pdf"><img src="./assets/paper_preview_retiming.png" alt="" width="140" height="167"></a></td>
+                <td width="750"><p><b>Layered Neural Rendering for Retiming People in Video</b><br>
+                  Erika Lu, Forrester Cole, Tali Dekel, Weidi Xie, Andrew Zisserman, David Salesin, William T. Freeman, and Michael Rubinstein<br>
+                  <em>SIGGRAPH Asia 2020.</em><br><br>
+                  [<a href="https://arxiv.org/pdf/2009.07833.pdf">paper</a>] [<a href="https://retiming.github.io">project page</a>]</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          </table>
+          <p>&nbsp;</p>
+          <p class="section" style="margin: 0px; font-size: 15pt">References</p>
+          <table border="0" class="references">
+            <tbody>
+              <tr>
+                <td width="20" style="vertical-align: top"><p>[1]</p></td>
+                <td align="left">
+                  <p>E. Lu, F. Cole, T. Dekel, A. Zisserman, W. T. Freeman, M. Rubinstein. "Omnimatte: Associating Objects and Their Effects in Video." CVPR 2021</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+<!--
+          <blockquote>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p><em><b>Acknowledgements. </b>This work
+            </em>  </p>
+          </blockquote>
+-->
+        </div>
+
+
+      </body></html>
